@@ -5,7 +5,7 @@
 Deploy command:
 
 ```bash
-gcloud functions deploy proxy --runtime nodejs20 --trigger-http --allow-unauthenticated
+gcloud functions deploy proxy --runtime nodejs20 --trigger-http --allow-unauthenticated --no-gen2
 ```
 
 After deploying, run the following if you want it to be accessible to all users (you will need `cloudfunctions.functions.setIamPolicy` IAM permission to perform this operation):
