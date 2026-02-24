@@ -6,6 +6,7 @@ Deploy command:
 
 ```bash
 GCP_DICOMWEB_PROXY_FN_NAME=proxy
+
 gcloud functions deploy $GCP_DICOMWEB_PROXY_FN_NAME \
   --runtime nodejs20 \
   --trigger-http \
@@ -14,10 +15,24 @@ gcloud functions deploy $GCP_DICOMWEB_PROXY_FN_NAME \
   --no-gen2
 ```
 
+To make a dicomstore available throug the proxy, replace PROJECT, LOCATION, DATASET and STORE with your actual values in the `GCP_DICOMWEB_PROXY_DICOMURL` variable.
+Then run the following command to deploy the function with the updated DICOMURL set as environment variable.
+
+```
+GCP_DICOMWEB_PROXY_FN_NAME=proxy
+GCP_DICOMWEB_PROXY_DICOMURL="https://healthcare.googleapis.com/v1/projects/PROJECT/locations/LOCATION/datasets/DATASET/dicomStores/STORE/dicomWeb"
+
+gcloud functions deploy $GCP_DICOMWEB_PROXY_FN_NAME \
+  --update-env-vars DICOMURL="$GCP_DICOMWEB_PROXY_DICOMURL" \
+  --region us-central1 \
+  --no-gen2
+```
+
 After deploying, run the following if you want it to be accessible to all users (you will need `cloudfunctions.functions.setIamPolicy` IAM permission to perform this operation):
 
 ```bash
 GCP_DICOMWEB_PROXY_FN_NAME=proxy
+
 gcloud functions add-iam-policy-binding $GCP_DICOMWEB_PROXY_FN_NAME \
   --region=us-central1 \
   --member=allUsers \
