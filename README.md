@@ -27,6 +27,11 @@ Conversation that helped fix the code to make it deploy: https://www.perplexity.
 
 Not so helpful conversation with Gemini, which however includes instructions on how to configure AppEngine SA to permit access to GHC DICOM store: https://g.co/gemini/share/46ab5254e2c8
 
+## Configuration 
+
+The default function name is `proxy`. You can use a different function name, however, that requires a slightly different setup **before** running the commands above.
+First, set `GCP_DICOMWEB_PROXY_FN_NAME=your_fn_name`. You then also need to change the exported function name in `index.js` in line `48`: `exports.your_fn_name = async (req, res) => {`.
+
 ## Permissions
 
 Service account used by the function is listed under details of the function in https://console.cloud.google.com/functions.
