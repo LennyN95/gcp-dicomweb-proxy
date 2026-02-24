@@ -5,16 +5,23 @@
 Deploy command:
 
 ```bash
-gcloud functions deploy proxy --runtime nodejs20 --trigger-http --allow-unauthenticated --no-gen2
+GCP_DICOMWEB_PROXY_FN_NAME=proxy
+gcloud functions deploy $GCP_DICOMWEB_PROXY_FN_NAME \
+  --runtime nodejs20 \
+  --trigger-http \
+  --allow-unauthenticated \
+  --no-gen2
 ```
 
 After deploying, run the following if you want it to be accessible to all users (you will need `cloudfunctions.functions.setIamPolicy` IAM permission to perform this operation):
 
 ```bash
-gcloud functions add-iam-policy-binding prostate_seg_proxy --region=us-central1 --member=allUsers --role=roles/cloudfunctions.invoker
+GCP_DICOMWEB_PROXY_FN_NAME=proxy
+gcloud functions add-iam-policy-binding $GCP_DICOMWEB_PROXY_FN_NAME \
+  --region=us-central1 \
+  --member=allUsers \
+  --role=roles/cloudfunctions.invoker
 ```
-
-
 
 Conversation that helped fix the code to make it deploy: https://www.perplexity.ai/search/i-am-trying-to-deploy-a-google-BjRoJupjQ2eup440PQOEAQ
 
