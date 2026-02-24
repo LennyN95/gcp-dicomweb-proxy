@@ -10,6 +10,7 @@ gcloud functions deploy $GCP_DICOMWEB_PROXY_FN_NAME \
   --runtime nodejs20 \
   --trigger-http \
   --allow-unauthenticated \
+  --entry-point proxy \
   --no-gen2
 ```
 
@@ -26,11 +27,6 @@ gcloud functions add-iam-policy-binding $GCP_DICOMWEB_PROXY_FN_NAME \
 Conversation that helped fix the code to make it deploy: https://www.perplexity.ai/search/i-am-trying-to-deploy-a-google-BjRoJupjQ2eup440PQOEAQ
 
 Not so helpful conversation with Gemini, which however includes instructions on how to configure AppEngine SA to permit access to GHC DICOM store: https://g.co/gemini/share/46ab5254e2c8
-
-## Configuration 
-
-The default function name is `proxy`. You can use a different function name, however, that requires a slightly different setup **before** running the commands above.
-First, set `GCP_DICOMWEB_PROXY_FN_NAME=your_fn_name`. You then also need to change the exported function name in `index.js` in line `48`: `exports.your_fn_name = async (req, res) => {`.
 
 ## Permissions
 
